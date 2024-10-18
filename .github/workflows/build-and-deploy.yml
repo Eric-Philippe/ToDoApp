@@ -62,9 +62,9 @@ jobs:
 
       - name: Copy Build Files to Root
         run: |
-          mkdir -p frontend/backend_dist
-          cp -r frontend/dist/* frontend/backend_dist/
-          cp -r backend/dist/* frontend/backend_dist/
+          mkdir -p frontend
+          mkdir -p backend
+          touch README.md
 
       - name: Commit and Push Changes
         run: |
