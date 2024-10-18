@@ -1,6 +1,6 @@
-# compiled output
-/dist
-*/node_modules
+# Nodemodules from wathever parent directory
+**/node_modules/
+**/dist/
 
 # postgres storage
 /pgadmin-data
@@ -45,4 +45,4 @@ lerna-debug.log*
 
 .env
 
-.babel.7.5.5.development.json
+**/coverage

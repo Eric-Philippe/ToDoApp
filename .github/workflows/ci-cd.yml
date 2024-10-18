@@ -1,0 +1,116 @@
+name: CI/CD Overkill Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: 🧹 Lint Backend & Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Dependencies (Backend)
+        working-directory: ./backend
+        run: npm install
+
+      - name: Run ESLint (Backend)
+        working-directory: ./backend
+        run: npm run lint
+
+      - name: Install Dependencies (Frontend)
+        working-directory: ./frontend
+        run: npm install
+
+      # - name: Run ESLint (Frontend)
+      #   working-directory: ./frontend
+      #   run: npm run lint
+
+  test:
+    name: 🧪 Run Unit & E2E Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Run Backend Unit Tests
+        working-directory: ./backend
+        run: npm run test
+
+      - name: Run Backend Coverage
+        working-directory: ./backend
+        run: npm run test:cov
+
+#   docker_build:
+#     name: 🐳 Build & Push Docker Images
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+
+#       - name: Login to DockerHub
+#         uses: docker/login-action@v2
+#         with:
+#           username: ${{ secrets.DOCKER_USERNAME }}
+#           password: ${{ secrets.DOCKER_PASSWORD }}
+
+#       - name: Build Backend Docker Image
+#         run: docker build -t my-app-backend ./backend
+
+#       - name: Build Frontend Docker Image
+#         run: docker build -t my-app-frontend ./frontend
+
+#       - name: Push Backend Image
+#         run: docker push my-app-backend
+
+#       - name: Push Frontend Image
+#         run: docker push my-app-frontend
+
+#   deploy:
+#     name: 🚀 Deploy to Production Server
+#     runs-on: ubuntu-latest
+#     needs: docker_build
+#     steps:
+#       - name: Setup SSH Connection
+#         uses: appleboy/ssh-action@v0.1.6
+#         with:
+#           host: ${{ secrets.SERVER_HOST }}
+#           username: ${{ secrets.SERVER_USER }}
+#           key: ${{ secrets.SSH_PRIVATE_KEY }}
+#           script: |
+#             cd /path/to/deployment
+#             docker-compose down
+#             docker-compose pull
+#             docker-compose up -d
+
+#   security:
+#     name: 🔒 Security Analysis
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Run Snyk to check vulnerabilities
+#         uses: snyk/actions@master
+#         env:
+#           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+#       - name: Enable Dependabot Alerts
+#         uses: dependabot/fetch-metadata@v1

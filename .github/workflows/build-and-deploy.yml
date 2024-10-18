@@ -1,0 +1,73 @@
+name: Build and Deploy
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: 🏗️ Build Frontend & Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # FRONTEND BUILD
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Build Frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      # BACKEND BUILD
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      - name: Build Backend
+        working-directory: ./backend
+        run: npm run build
+
+      # STORE BUILD OUTPUT AS ARTEFACT
+      - name: Upload Build Artefacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            frontend/dist
+            backend/dist
+
+  commit_to_branch:
+    name: 📥 Commit Build Output to Deploy Branch
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Git User
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create or Switch to Deploy Branch
+        run: |
+          git checkout -B deploy
+
+      - name: Copy Build Files to Root
+        run: |
+          mkdir -p frontend
+          mkdir -p backend
+          touch README.md
+
+      # - name: Commit and Push Changes
+      #   run: |
+      #     git add .
+      #     git commit 
+
