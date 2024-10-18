@@ -66,8 +66,8 @@ jobs:
           mkdir -p backend
           touch README.md
 
-      - name: Commit and Push Changes
-        run: |
-          git add .
-          git commit 
+      # - name: Commit and Push Changes
+      #   run: |
+      #     git add .
+      #     git commit 
 
