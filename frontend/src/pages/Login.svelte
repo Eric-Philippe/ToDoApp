@@ -22,7 +22,9 @@
       }
 
       const data = await response.json();
-      isAuthenticated.set(true);
+      isAuthenticated.set(true);      
+
+      localStorage.setItem('token', data.accessToken);
     } catch (error) {
       errorMessage = error.message;
     }
