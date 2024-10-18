@@ -3,6 +3,7 @@
 A simple TODO application under Docker environment.
 * NestJS
 * TypeORM
+* Svelte
 * PostgreSQL
 * Swagger
 * PGadmin4
