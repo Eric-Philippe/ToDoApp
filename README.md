@@ -1,3 +1,7 @@
+# ToDoApp
+
+![CI/CD](https://github.com/Eric-Philippe/ToDoApp/actions/workflows/ci-cd.yml/badge.svg)
+
 ## Description
 
 A simple TODO application under Docker environment.
