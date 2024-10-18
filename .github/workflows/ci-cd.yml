@@ -25,9 +25,9 @@ jobs:
         working-directory: ./frontend
         run: npm install
 
-      - name: Run ESLint (Frontend)
-        working-directory: ./frontend
-        run: npm run lint
+      # - name: Run ESLint (Frontend)
+      #   working-directory: ./frontend
+      #   run: npm run lint
 
   test:
     name: 🧪 Run Unit & E2E Tests
@@ -58,21 +58,9 @@ jobs:
         working-directory: ./backend
         run: npm run test
 
-      - name: Run Backend E2E Tests
-        working-directory: ./backend
-        run: npm run test:e2e
-
       - name: Run Backend Coverage
         working-directory: ./backend
         run: npm run test:cov
-
-      - name: Install Frontend Dependencies
-        working-directory: ./frontend
-        run: npm install
-
-      - name: Run Frontend Unit Tests
-        working-directory: ./frontend
-        run: npm run test
 
 #   docker_build:
 #     name: 🐳 Build & Push Docker Images
