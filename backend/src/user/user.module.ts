@@ -6,13 +6,13 @@ import { UserService } from './service/user.service';
 import { UserController } from './user.controller';
 
 @Module({
-    imports: [
-        MulterModule.register({
-            dest: './uploads'
-        }),
-        TypeOrmModule.forFeature([UserInfoRepository])
-    ],
-    controllers: [UserController],
-    providers: [UserService]
+  imports: [
+    MulterModule.register({
+      dest: './uploads',
+    }),
+    TypeOrmModule.forFeature([UserInfoRepository]),
+  ],
+  controllers: [UserController],
+  providers: [UserService],
 })
 export class UserModule {}
