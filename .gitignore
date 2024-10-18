@@ -44,3 +44,5 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .env
+
+.babel.7.5.5.development.json
