@@ -4,18 +4,47 @@
 
 ## Description
 
-A simple TODO application under Docker environment.
+A simple TODO application under Docker environment with NestJS and Svelte. This project was made as a school project in order to have the best practices of a fullstack application. This project does not aim to be a complete application but rather a foundation to apply the best practices of a fullstack application.
+
+## Table of Contents
+
+- [ToDoApp](#todoapp)
+  - [Description](#description)
+  - [Table of Contents](#table-of-contents)
+    - [🖼️ Illustration](#️-illustration)
+  - [💽 Technologies](#-technologies)
+  - [🐳 Running the app on docker](#-running-the-app-on-docker)
+    - [🐋 Docker build \& start](#-docker-build--start)
+    - [💾 Migration](#-migration)
+  - [🖲️ Running the app without docker](#️-running-the-app-without-docker)
+    - [⏏️ Installation](#️-installation)
+    - [💾 Migration (without docker)](#-migration-without-docker)
+  - [🎬 Running the app](#-running-the-app)
+  
+> Check the [CHANGELOG](./CHANGELOG.md) for the latest changes.
+
+### 🖼️ Illustration
+
+![Main Page](./images/main.png)
+
+![Login Page](./images/login.png)
+
+## 💽 Technologies
+
 * NestJS
 * TypeORM
 * Svelte
 * PostgreSQL
-* Swagger
 * PGadmin4
 * JWT
 * Docker
+* Swagger
 
-# Running the app on docker
-## Docker build & start
+![Swagger](./images/swagger.png)
+
+## 🐳 Running the app on docker
+
+### 🐋 Docker build & start
 
 ```bash
 # docker env build
@@ -27,7 +56,8 @@ $ docker-compose up
 # remove docker container (services & networks)
 $ docker-compose down
 ```
-## Migration
+
+### 💾 Migration
 
 ```bash
 # generate migration
@@ -37,13 +67,15 @@ $ docker-compose run nestjs npm run typeorm:generate AnyNameYouLike
 $ docker-compose run nestjs npm run typeorm:run
 ```
 
-# Running the app without docker
-## Installation
+## 🖲️ Running the app without docker
+
+### ⏏️ Installation
 
 ```bash
 $ npm install
 ```
-## Migration
+
+### 💾 Migration (without docker)
 
 ```bash
 # generate migration
@@ -53,7 +85,7 @@ $ npm run typeorm:generate AnyNameYouLike
 $ npm run typeorm:run
 ```
 
-## Running the app
+## 🎬 Running the app
 
 ```bash
 # development
