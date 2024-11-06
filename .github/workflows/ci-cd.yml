@@ -44,31 +44,11 @@ jobs:
         env:
           DISCORD_WEBHOOK: https://discord.com/api/webhooks/1303658916260872213/ok3NDEaJNpsKYNMbp7wH4k9SV1-akCHIgTJkqzmfgz-GWsHnDskGGV_YgS_qvMeucm7z
         run: |
-          if [ ${{ job.status }} == 'success' ]; then
-            curl -H "Content-Type: application/json" -d '{
-              "embeds": [{
-                "title": "Build Succeeded! :white_check_mark:",
-                "color": 65280,
-                "description": "A new awesome update has been deployed!
-                
-                ░░░░░░░░░░░░░░░░░
-                ░░░▄░▀▄░░░▄▀░▄░░░
-                ░░░█▄███████▄█░░░
-                ░░░███▄███▄███░░░
-                ░░░▀█████████▀░░░
-                ░░░░▄▀░░░░░▀▄░░░░
-                ░░░░░░░░░░░░░░░░░ 
-                "
-              }]
-            }' $DISCORD_WEBHOOK
-          else
-            curl -H "Content-Type: application/json" -d '{
-              "embeds": [{
-                "title": "Build Failed! :x:",
-                "color": 16711680,
-                "description": "Something went wrong with the deployment."
-              }]
-            }' $DISCORD_WEBHOOK
+          curl -H "Content-Type: application/json" -d '{"content": "https://i.pinimg.com/originals/39/8c/e4/398ce45b4f2f540a62cbb9d08d692445.gif"
+          }' $DISCORD_WEBHOOK
+
+
+
 
   # test:
   #   name: 🧪 Run Unit & E2E Tests
