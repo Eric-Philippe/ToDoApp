@@ -48,14 +48,7 @@ jobs:
             "embeds": [{
               "title": "Build Succeeded! :white_check_mark:",
               "color": 65280,
-              "description": "A new awesome update has been deployed!\\n\\n
-              ░░░░░░░░░░░░░░░░░\\n
-              ░░░▄░▀▄░░░▄▀░▄░░░\\n
-              ░░░█▄███████▄█░░░\\n
-              ░░░███▄███▄███░░░\\n
-              ░░░▀█████████▀░░░\\n
-              ░░░░▄▀░░░░░▀▄░░░░\\n
-              ░░░░░░░░░░░░░░░░░"
+              "description": "A new awesome update has been deployed! :rocket:"
             }]
           }' $DISCORD_WEBHOOK
 
