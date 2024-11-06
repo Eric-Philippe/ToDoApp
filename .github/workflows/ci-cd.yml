@@ -62,6 +62,49 @@ jobs:
         working-directory: ./backend
         run: npm run test:cov
 
+      - name: Check build status and notify Discord
+        env:
+          DISCORD_WEBHOOK: https://discord.com/api/webhooks/1303658916260872213/ok3NDEaJNpsKYNMbp7wH4k9SV1-akCHIgTJkqzmfgz-GWsHnDskGGV_YgS_qvMeucm7z
+        run: |
+          if [ ${{ job.status }} == 'success' ]; then
+            curl -H "Content-Type: application/json" -d '{
+              "embeds": [{
+                "title": "Build Succeeded! :white_check_mark:",
+                "color": 65280,
+                "description": "A new awesome update has been deployed ! \n 
+                
+                ░░░░░░░░░░░░░░░░░
+                ░░░▄░▀▄░░░▄▀░▄░░░
+                ░░░█▄███████▄█░░░
+                ░░░███▄███▄███░░░
+                ░░░▀█████████▀░░░
+                ░░░░▄▀░░░░░▀▄░░░░
+                ░░░░░░░░░░░░░░░░░ 
+                ",
+                "fields": [
+                  {
+                    "name": "Commit Message",
+                    "value": "'"$(git log -1 --pretty=%B)"'"
+                  }
+                ]
+              }]
+            }' $DISCORD_WEBHOOK
+          else
+            curl -H "Content-Type: application/json" -d '{
+              "embeds": [{
+                "title": "Build Failed! :x:",
+                "color": 16711680,
+                "description": "Something went wrong with the deployment !",
+                "fields": [
+                  {
+                    "name": "Commit Message",
+                    "value": "'"$(git log -1 --pretty=%B)"'"
+                  }
+                ]
+              }]
+            }' $DISCORD_WEBHOOK
+          fi
+
 #   docker_build:
 #     name: 🐳 Build & Push Docker Images
 #     runs-on: ubuntu-latest
